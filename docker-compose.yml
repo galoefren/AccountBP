@@ -1,0 +1,6 @@
+services:
+  accountbp:
+    build: .
+    container_name: accountbp
+    ports:
+      - "8081:8081"

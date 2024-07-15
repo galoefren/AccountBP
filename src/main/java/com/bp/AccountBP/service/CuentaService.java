@@ -7,7 +7,9 @@ import com.bp.AccountBP.repository.CuentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +26,7 @@ public class CuentaService {
     public List<CuentaDTO> getAllCuentas() {
 
         List<Cuenta> cuentas = cuentaRepository.findAll();
-        return cuentas.stream()
-                .map(CuentaMapper::toDTO)
-                .collect(Collectors.toList());
+        return CuentaMapper.toDTOs(cuentas);
 
     }
 
@@ -39,7 +39,8 @@ public class CuentaService {
 
     public String createCuenta(Cuenta cuenta,String numeroCedula) {
 
-        // Enviar mensaje a Kafka para buscar clienteId por numeroCedula
+        // Enviar mensaje a Kafka para buscar clienteId por numeroCedula,
+
         kafkaProducer.sendMessage(numeroCedula);
         kafkaConsumer.setCuentaListener(cuenta);
         return "Se creo la cuenta";
@@ -63,6 +64,33 @@ public class CuentaService {
     public void deleteCuenta(Long id) {
         Cuenta cuenta = cuentaRepository.findById(id).orElseThrow(() -> new RuntimeException("Cuenta not found"));
         cuentaRepository.delete(cuenta);
+    }
+
+    public List<CuentaDTO> findMovimientosBetweenDates(String numeroCedula, LocalDateTime startDate, LocalDateTime endDate) {
+        try {
+            kafkaProducer.sendMessageCliente(numeroCedula);
+            // Esperar la respuesta del clienteId (con un tiempo de espera de 10 segundos)
+            boolean messageReceived = kafkaConsumer.awaitMessage(10, TimeUnit.SECONDS);
+
+            if (!messageReceived) {
+                throw new IllegalArgumentException("No se recibió respuesta del clienteId en el tiempo esperado");
+            }
+
+            Long clienteId = kafkaConsumer.getClienteId();
+            String nombreCliente = kafkaConsumer.getNombre();
+
+            if (clienteId == null) {
+                throw new IllegalArgumentException("Cliente no encontrado");
+            }
+
+            List<Cuenta> cuentaList =  cuentaRepository.findByFechaBetween(clienteId,startDate,endDate);
+
+            return CuentaMapper.toDTOs(cuentaList);
+
+        } catch (InterruptedException e) {
+            throw new IllegalArgumentException("Error el generar reporte");
+        }
+
     }
 
 }

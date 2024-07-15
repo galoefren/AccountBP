@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "0b5e382d-734e-4ddd-9786-7350420136f7",
+		"name": "Movements",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7460978"
+	},
+	"item": [
+		{
+			"name": "GetAllMovements",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/getAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovementsByAccount",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/search?numeroCuenta=0000001",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"search"
+					],
+					"query": [
+						{
+							"key": "numeroCuenta",
+							"value": "0000001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostMovement",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fecha\": \"2024-07-11T10:00:00\",\r\n  \"tipoMovimiento\": \"retiro\",\r\n  \"valor\": 200.00,\r\n  \"cuenta\": {\r\n    \"numeroCuenta\": \"0000001\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/post",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByIdMovement",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"contraseña\": \"password123\",\r\n  \"estado\": true,\r\n  \"nombre\": \"John Doe\",\r\n  \"genero\": \"M\",\r\n  \"edad\": 30,\r\n  \"identificación\": \"1234567890\",\r\n  \"dirección\": \"123 Main St\",\r\n  \"teléfono\": \"555-1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/get/98",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"get",
+						"98"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutByIdMovement",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fecha\": \"2024-07-11T10:00:00\",\r\n  \"tipoMovimiento\": \"deposito\",\r\n  \"valor\": 100.00\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/put/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"put",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByIdMovement",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/movimientos/delete/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"movimientos",
+						"delete",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,10 +1,12 @@
 package com.bp.AccountBP.controller;
 
+import com.bp.AccountBP.dto.CuentaDTO;
 import com.bp.AccountBP.dto.MovimientoDTO;
 import com.bp.AccountBP.model.Movimientos;
 import com.bp.AccountBP.repository.CuentaRepository;
 import com.bp.AccountBP.service.MovimientosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,8 +28,6 @@ public class MovimientosController {
     @Autowired
     private MovimientosService movimientosService;
 
-    @Autowired
-    private CuentaRepository cuentaRepository;
 
     @GetMapping("/getAll")
     public ResponseEntity<List<MovimientoDTO>> getAllMovimientos() {
@@ -62,4 +63,6 @@ public class MovimientosController {
         List<MovimientoDTO> movimientos = movimientosService.findMovimientosByCuentaNumeroCuenta(numeroCuenta);
         return ResponseEntity.ok(movimientos);
     }
+
+
 }

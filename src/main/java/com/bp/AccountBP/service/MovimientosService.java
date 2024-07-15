@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+
 import java.util.List;
+
 
 @Service
 public class MovimientosService {
@@ -21,6 +23,11 @@ public class MovimientosService {
 
     @Autowired
     private CuentaRepository cuentaRepository;
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
+    @Autowired
+    private KafkaConsumer kafkaConsumer;
 
     public MovimientoDTO createMovimiento(Movimientos movimiento) {
 
@@ -112,5 +119,7 @@ public class MovimientosService {
         List<Movimientos> movimientosList = movimientosRepository.findByCuentaNumeroCuenta(numeroCuenta);
         return MovimientoMapper.toDTOs(movimientosList);
     }
+
+
 
 }

@@ -6,14 +6,15 @@ import com.bp.AccountBP.model.Movimientos;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CuentaMapper {
-
-    public static CuentaDTO toDTO(Cuenta cuenta) {
-        CuentaDTO cuentaDTO = new CuentaDTO();
-        cuentaDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
-        cuentaDTO.setTipoCuenta(cuenta.getTipoCuenta());
-        cuentaDTO.setSaldoInicial(cuenta.getSaldoInicial());
-        cuentaDTO.setEstado(cuenta.isEstado());
+public class ReporteMapper {
+    
+    public static ReporteDTO toDTO(Cuenta cuenta,String nombre) {
+        ReporteDTO reporteDTO = new ReporteDTO();
+        reporteDTO.setNombre(nombre);
+        reporteDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
+        reporteDTO.setTipoCuenta(cuenta.getTipoCuenta());
+        reporteDTO.setSaldoInicial(cuenta.getSaldoInicial());
+        reporteDTO.setEstado(cuenta.isEstado());
 
         List<MovimientoDTO> movimientosDTO = cuenta.getMovimientos().stream()
                 .map(movimiento -> {
@@ -27,16 +28,16 @@ public class CuentaMapper {
                 })
                 .collect(Collectors.toList());
 
-        cuentaDTO.setMovimientos(movimientosDTO);
+        reporteDTO.setMovimientos(movimientosDTO);
 
-        return cuentaDTO;
+        return reporteDTO;
 
     }
 
-    public static List<CuentaDTO> toDTOs(List<Cuenta> cuentaList) {
+    public static List<ReporteDTO> toDTOs(List<Cuenta> cuentaList,String nombre) {
         return cuentaList.stream()
-                .map(CuentaMapper::toDTO)
+                .map(ReporteMapper::toDTO)
                 .collect(Collectors.toList());
     }
-
+    
 }

@@ -43,7 +43,7 @@ public class CuentaService {
 
         kafkaProducer.sendMessage(numeroCedula);
         kafkaConsumer.setCuentaListener(cuenta);
-        return "Se creo la cuenta";
+        return "Se ejecuto la orden para crear la cuenta: "+ numeroCedula + " -Si no se creo la cuenta debe crear un usuario";
     }
 
     public void createCuentaFromListener(Cuenta cuenta) {

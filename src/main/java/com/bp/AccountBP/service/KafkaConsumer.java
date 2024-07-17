@@ -1,5 +1,6 @@
 package com.bp.AccountBP.service;
 
+import com.bp.AccountBP.controller.GlobalExceptionHandler;
 import com.bp.AccountBP.model.Cuenta;
 import com.bp.AccountBP.repository.CuentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,14 @@ public class KafkaConsumer {
     @KafkaListener(topics = "cliente_id_respuesta", groupId = "group_id")
     public void consume(String message) {
 
-            this.clienteId = Long.parseLong(message);
-            cuenta.setClienteid(clienteId);
-            cuentaRepository.save(cuenta);
+                if(message.contains("null")){
+                    throw new IllegalArgumentException("No se encontro el usuario para crear la cuenta");
+                }else{
+                    this.clienteId = Long.parseLong(message);
+                    cuenta.setClienteid(clienteId);
+                    cuentaRepository.save(cuenta);
+                }
+
     }
 
     @KafkaListener(topics = "cliente_id_nombre", groupId = "group_id")

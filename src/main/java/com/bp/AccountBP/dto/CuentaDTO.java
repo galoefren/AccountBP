@@ -7,6 +7,8 @@ import java.util.List;
 
 @Data
 public class CuentaDTO {
+    private Long id;
+    private Long clienteid;
     private String numeroCuenta;
     private String tipoCuenta;
     private BigDecimal saldoInicial;

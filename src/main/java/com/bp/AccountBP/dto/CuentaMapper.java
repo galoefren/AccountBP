@@ -10,6 +10,8 @@ public class CuentaMapper {
 
     public static CuentaDTO toDTO(Cuenta cuenta) {
         CuentaDTO cuentaDTO = new CuentaDTO();
+        cuentaDTO.setClienteid(cuenta.getClienteid());
+        cuentaDTO.setId(cuenta.getId());
         cuentaDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
         cuentaDTO.setTipoCuenta(cuenta.getTipoCuenta());
         cuentaDTO.setSaldoInicial(cuenta.getSaldoInicial());

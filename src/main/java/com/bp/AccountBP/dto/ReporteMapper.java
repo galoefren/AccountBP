@@ -8,9 +8,8 @@ import java.util.stream.Collectors;
 
 public class ReporteMapper {
     
-    public static ReporteDTO toDTO(Cuenta cuenta,String nombre) {
+    public static ReporteDTO toDTO(Cuenta cuenta) {
         ReporteDTO reporteDTO = new ReporteDTO();
-        reporteDTO.setNombre(nombre);
         reporteDTO.setNumeroCuenta(cuenta.getNumeroCuenta());
         reporteDTO.setTipoCuenta(cuenta.getTipoCuenta());
         reporteDTO.setSaldoInicial(cuenta.getSaldoInicial());
@@ -34,7 +33,7 @@ public class ReporteMapper {
 
     }
 
-    public static List<ReporteDTO> toDTOs(List<Cuenta> cuentaList,String nombre) {
+    public static List<ReporteDTO> toDTOs(List<Cuenta> cuentaList) {
         return cuentaList.stream()
                 .map(ReporteMapper::toDTO)
                 .collect(Collectors.toList());
